@@ -1,0 +1,17 @@
+{
+  "name": "underpin/styles-loader",
+  "destyleion": "Style Loader for Underpin",
+  "type": "library",
+  "license": "GPL 2.0",
+  "authors": [
+    {
+      "name": "Alex Standiford",
+      "email": "a@alexstandiford.com"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "styles.php"
+    ]
+  }
+}
