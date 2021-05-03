@@ -26,19 +26,23 @@ A very basic example could look something like this.
 
 ```php
 underpin()->styles()->add( 'test', [
-	'class' => 'Underpin_Styles\Factories\Style_Instance',
-	'args'  => [
-		[
-		    'src'         => 'path/to/style/src',
-			'name'        => 'test',
-			'destyleion' => 'The destyleion'
-		]
-	],
+	'src'         => 'path/to/style/src',
+	'name'        => 'test',
+	'description' => 'The description',
 ] );
+
 ```
 
 Alternatively, you can extend `Style` and reference the extended class directly, like so:
 
 ```php
 underpin()->styles()->add('key','Namespace\To\Class');
+```
+
+## Enqueuing Styles
+
+To enqueue a styles, run the loader and reference the style ID, like so:
+
+```php
+underpin()->style()->enqueue('test'); // Enqueue the test style
 ```

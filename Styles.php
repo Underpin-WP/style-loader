@@ -32,6 +32,8 @@ class Styles extends Loader_Registry {
 	 */
 	protected $abstraction_class = '\Underpin_Styles\Abstracts\Style';
 
+	protected $default_factory = '\Underpin_Styles\Factories\Style_Instance';
+
 	/**
 	 * @inheritDoc
 	 */
