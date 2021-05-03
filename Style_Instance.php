@@ -10,8 +10,8 @@
 namespace Underpin_Styles\Factories;
 
 
+use Underpin\Traits\Instance_Setter;
 use Underpin_Styles\Abstracts\Style;
-use function Underpin\underpin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,15 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Underpin\Abstracts
  */
 class Style_Instance extends Style {
+	use Instance_Setter;
 
 	public function __construct( $args = [] ) {
-		// Override default params.
-		foreach ( $args as $arg => $value ) {
-			if ( isset( $this->$arg ) ) {
-				$this->$arg = $value;
-				unset( $args[ $arg ] );
-			}
-		}
+		$this->set_values( $args );
 
 		parent::__construct();
 	}
