@@ -1,5 +1,5 @@
 {
-  "name": "underpin/styles-loader",
+  "name": "underpin/style-loader",
   "destyleion": "Style Loader for Underpin",
   "type": "library",
   "license": "GPL 2.0",
