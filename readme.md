@@ -17,7 +17,7 @@ Underpin, it should work as-expected.
 
 ## Setup
 
-1. Install Underpin. See [Underpin Docs](https://www.github.com/underpin/underpin)
+1. Install Underpin. See [Underpin Docs](https://www.github.com/underpin-wp/underpin)
 1. Register new styles as-needed.
 
 ## Example
