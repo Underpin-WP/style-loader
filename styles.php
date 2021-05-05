@@ -11,4 +11,4 @@ add_action( 'underpin/before_setup', function ( $instance ) {
 	$instance->loaders()->add( 'styles', [
 		'registry' => 'Underpin_Styles\Loaders\Styles',
 	] );
-} );
+}, 5 );
