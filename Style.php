@@ -10,6 +10,7 @@
 namespace Underpin_Styles\Abstracts;
 
 use Underpin\Traits\Feature_Extension;
+use Underpin\Traits\Middleware;
 use WP_Error;
 use function Underpin\underpin;
 
@@ -26,6 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 abstract class Style {
 	use Feature_Extension;
+	use Middleware;
 
 	/**
 	 * The handle for this style.
@@ -144,89 +146,6 @@ abstract class Style {
 	}
 
 	/**
-	 * Adds a param to localize to this style.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $key   The key for the localized value.
-	 * @param mixed  $value The value
-	 * @return true|WP_Error True if successful, \WP_Error if param was added too late.
-	 */
-	public function set_param( $key, $value ) {
-
-		// If the style is already enqueued, return an error.
-		if ( $this->is_enqueued() ) {
-			return underpin()->logger()->log_as_error(
-				'error',
-				'param_set_too_late',
-				'The localized param ' . $key . ' was set after the style was already enqueued.',
-				[ 'handle' => $this->handle, 'key' => $key, 'value' => $value ]
-			);
-		}
-
-		$this->localized_params[ $key ] = $value;
-
-		return true;
-	}
-
-	/**
-	 * Removes a localized param.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $key The key to remove.
-	 * @return true|WP_Error True if successful, \WP_Error if param was added too late.
-	 */
-	public function remove_param( $key ) {
-
-		// If the style is already enqueued, return an error.
-		if ( wp_style_is( $this->handle ) ) {
-			return underpin()->logger()->log_as_error(
-				'error',
-				'param_removed_too_late',
-				'The localized param ' . $key . ' attempted to be removed after the style was already enqueued.',
-				[ 'handle' => $this->handle, 'key' => $key ]
-			);
-		}
-
-		if ( isset( $this->localized_params[ $key ] ) ) {
-			unset( $this->localized_params[ $key ] );
-		}
-
-		return true;
-	}
-
-	/**
-	 * Localizes the style, if there are any arguments to pass.
-	 *
-	 * @since 1.0.0
-	 */
-	public function localize() {
-		$localized_params = $this->get_localized_params();
-
-		// If we actually have localized params, localize and enqueue.
-		if ( ! empty( $localized_params ) ) {
-			$localized = wp_localize_style( $this->handle, $this->localized_var, $localized_params );
-
-			if ( false === $localized ) {
-				underpin()->logger()->log(
-					'error',
-					'style_was_not_localized',
-					'The style ' . $this->handle . ' failed to localize. That is all I know, unfortunately.',
-					[ 'handle' => $this->handle, 'params' => $localized_params ]
-				);
-			} else {
-				underpin()->logger()->log(
-					'notice',
-					'style_was_localized',
-					'The style ' . $this->handle . ' localized successfully.',
-					[ 'handle' => $this->handle, 'params' => $localized_params ]
-				);
-			}
-		}
-	}
-
-	/**
 	 * Registers this style.
 	 * In-general, this should automatically run based on the contexts provided in the class.
 	 *
@@ -259,7 +178,6 @@ abstract class Style {
 	 * @since 1.0.0
 	 */
 	public function enqueue() {
-		$this->localize();
 		wp_enqueue_style( $this->handle );
 
 		// Confirm it was enqueued.
@@ -284,7 +202,7 @@ abstract class Style {
 		if ( isset( $this->$key ) ) {
 			return $this->$key;
 		} else {
-			return new WP_error( 'batch_task_param_not_set', 'The batch task key ' . $key . ' could not be found.' );
+			return new WP_Error( 'batch_task_param_not_set', 'The batch task key ' . $key . ' could not be found.' );
 		}
 	}
 
