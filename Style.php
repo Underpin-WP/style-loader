@@ -96,6 +96,22 @@ abstract class Style {
 		if ( empty( $this->localized_var ) ) {
 			$this->localized_var = $this->handle;
 		}
+
+		if ( is_string( $this->ver ) && file_exists( $this->ver ) ) {
+			$file       = wp_parse_args( require( $this->ver ), [ 'dependencies' => [], 'version' => '' ] );
+			$this->ver  = $file['version'];
+		} else {
+			underpin()->logger()->log(
+				'error',
+				'dependencies_file_not_found',
+				'A dependency file was specified, but it could not be found.',
+				[
+					'handle' => $this->handle,
+					'file'   => $this->ver,
+				]
+			);
+			$this->ver = false;
+		}
 	}
 
 
@@ -181,7 +197,7 @@ abstract class Style {
 		wp_enqueue_style( $this->handle );
 
 		// Confirm it was enqueued.
-		if ( wp_style_is( $this->handle, 'enqueued' ) ) {
+		if ( wp_style_is( $this->handle ) ) {
 			underpin()->logger()->log(
 				'notice',
 				'style_was_enqueued',
