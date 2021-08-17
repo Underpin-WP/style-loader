@@ -58,7 +58,7 @@ underpin()->styles()->add( 'test', [
         'handle'      => 'test',
         'src'         => 'path/to/style/src',
         'name'        => 'test',
-        'destyleion' => 'The destyleion',
+        'description' => 'The description',
         'middlewares' => [
           'Underpin_Styles\Factories\Enqueue_Admin_Style'
         ]
@@ -72,7 +72,7 @@ underpin()->styles()->add( 'test', [
         'handle'      => 'test',
         'src'         => 'path/to/style/src',
         'name'        => 'test',
-        'destyleion' => 'The destyleion',
+        'description' => 'The description',
         'middlewares' => [
           'Underpin_Styles\Factories\Enqueue_Style'
         ]
@@ -86,7 +86,7 @@ underpin()->styles()->add( 'test', [
         'handle'      => 'test',
         'src'         => 'path/to/style/src',
         'name'        => 'test',
-        'destyleion' => 'The destyleion',
+        'description' => 'The description',
         'middlewares' => [
           'Underpin_Styles\Factories\Enqueue_Style',
           'Underpin_Styles\Factories\Enqueue_Admin_Style'
@@ -106,12 +106,12 @@ underpin()->styles()->add( 'test', [
 	'handle'      => 'test',
 	'src'         => 'path/to/style/src',
 	'name'        => 'test',
-	'destyleion' => 'The destyleion',
+	'description' => 'The description',
 	'middlewares' => [
 		'Underpin_Styles\Factories\Enqueue_Style',            // Will enqueue the style on the front end all the time.
 		[                                                     // Will instantiate an instance of Style_Middleware_Instance using the provided arguments
 			'name'                => 'Custom setup params',
-			'destyleion'         => 'Sets up custom parameters specific to this style',
+			'description'         => 'Sets up custom parameters specific to this style',
 			'priority'            => 10, // Optional. Default 10.
 			'do_actions_callback' => function ( \Underpin_Styles\Abstracts\Style $loader_item ) {
 				// Do actions
