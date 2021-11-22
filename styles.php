@@ -15,7 +15,7 @@ Underpin::attach( 'setup', new \Underpin\Factories\Observer( 'styles', [
 	require_once( plugin_dir_path( __FILE__ ) . 'lib/factories/Enqueue_Admin_Style.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'lib/factories/Enqueue_Style.php' );
 	$plugin->loaders()->add( 'styles', [
-		'registry' => 'Underpin_Styles\Loaders\Styles',
+		'class' => 'Underpin_Styles\Loaders\Styles',
 	] );
 	},
 ] ) );
