@@ -10,7 +10,7 @@
 namespace Underpin_Styles\Abstracts;
 
 use Underpin\Traits\Feature_Extension;
-use Underpin\Traits\Middleware;
+use Underpin\Traits\With_Middleware;
 use WP_Error;
 use function Underpin\underpin;
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 abstract class Style {
 	use Feature_Extension;
-	use Middleware;
+	use With_Middleware;
 
 	/**
 	 * The handle for this style.
