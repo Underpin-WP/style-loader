@@ -7,11 +7,11 @@
  */
 
 
-namespace Underpin_Styles\Factories;
+namespace Underpin\Styles\Factories;
 
 
 use Underpin\Traits\Instance_Setter;
-use Underpin_Styles\Abstracts\Style;
+use Underpin\Styles\Abstracts\Style;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

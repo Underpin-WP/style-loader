@@ -1,13 +1,14 @@
 <?php
 
 
-namespace Underpin_Styles\Factories;
+namespace Underpin\Styles\Factories;
 
 
 use Underpin\Abstracts\Observer;
 use Underpin\Abstracts\Storage;
-use Underpin_Styles\Abstracts\Style;
-use function Underpin\underpin;
+use Underpin\Loaders\Logger;
+use Underpin\Styles\Abstracts\Style;
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -22,9 +23,9 @@ class Enqueue_Admin_Style extends Observer {
 		if ( $instance instanceof Style ) {
 			add_action( 'admin_enqueue_script', [ $instance, 'enqueue' ] );
 		} else {
-			underpin()->logger()->log( 'warning', 'rest_middleware_action_failed_to_run', 'Middleware action failed to run. Rest_Middleware expects to run on a Script loader.', [
+			Logger::log( 'warning', 'rest_middleware_action_failed_to_run', 'Middleware action failed to run. Rest_Middleware expects to run on a Script loader.', [
 				'loader'  => get_class( $instance ),
-				'expects' => 'Underpin_Scripts\Abstracts\Script',
+				'expects' => 'Underpin\Scripts\Abstracts\Script',
 			] );
 		}
 	}
