@@ -7,12 +7,13 @@
  */
 
 
-namespace Underpin_Styles\Abstracts;
+namespace Underpin\Styles\Abstracts;
 
+use Underpin\Loaders\Logger;
 use Underpin\Traits\Feature_Extension;
-use Underpin\Traits\Middleware;
+use Underpin\Traits\With_Middleware;
 use WP_Error;
-use function Underpin\underpin;
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -27,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 abstract class Style {
 	use Feature_Extension;
-	use Middleware;
+	use With_Middleware;
 
 	/**
 	 * The handle for this style.
@@ -101,7 +102,7 @@ abstract class Style {
 			$file       = wp_parse_args( require( $this->ver ), [ 'dependencies' => [], 'version' => '' ] );
 			$this->ver  = $file['version'];
 		} else {
-			underpin()->logger()->log(
+			Logger::log(
 				'error',
 				'dependencies_file_not_found',
 				'A dependency file was specified, but it could not be found.',
@@ -171,14 +172,14 @@ abstract class Style {
 		$registered = wp_register_style( $this->handle, $this->src, $this->deps, $this->ver, $this->in_footer );
 
 		if ( false === $registered ) {
-			underpin()->logger()->log(
+			Logger::log(
 				'error',
 				'style_was_not_registered',
 				'The style ' . $this->handle . ' failed to register. That is all I know, unfortunately.',
 				['ref' => $this->handle]
 			);
 		} else {
-			underpin()->logger()->log(
+			Logger::log(
 				'notice',
 				'style_was_registered',
 				'The style ' . $this->handle . ' registered successfully.',
@@ -198,14 +199,14 @@ abstract class Style {
 
 		// Confirm it was enqueued.
 		if ( wp_style_is( $this->handle ) ) {
-			underpin()->logger()->log(
+			Logger::log(
 				'notice',
 				'style_was_enqueued',
 				'The style ' . $this->handle . ' has been enqueued.',
 				['ref' => $this->handle]
 			);
 		} else {
-			underpin()->logger()->log(
+			Logger::log(
 				'error',
 				'style_failed_to_enqueue',
 				'The style ' . $this->handle . ' failed to enqueue.',

@@ -7,12 +7,12 @@
  */
 
 
-namespace Underpin_Styles\Loaders;
+namespace Underpin\Styles\Loaders;
 
-use Underpin\Abstracts\Registries\Loader_Registry;
-use Underpin_Styles\Abstracts\Style;
+use Underpin\Abstracts\Registries\Object_Registry;
+use Underpin\Loaders\Logger;
+use Underpin\Styles\Abstracts\Style;
 use WP_Error;
-use function Underpin\underpin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,14 +25,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since   1.0.0
  * @package Underpin\Registries\Loaders
  */
-class Styles extends Loader_Registry {
+class Styles extends Object_Registry {
 
 	/**
 	 * @inheritDoc
 	 */
-	protected $abstraction_class = '\Underpin_Styles\Abstracts\Style';
+	protected $abstraction_class = '\Underpin\Styles\Abstracts\Style';
 
-	protected $default_factory = '\Underpin_Styles\Factories\Style_Instance';
+	protected $default_factory = '\Underpin\Styles\Factories\Style_Instance';
 
 	/**
 	 * @inheritDoc
@@ -65,7 +65,7 @@ class Styles extends Loader_Registry {
 
 			return true;
 		} else {
-			return underpin()->logger()->log_as_error(
+			return Logger::log_as_error(
 				'error',
 				'style_not_enqueued',
 				'The specified style could not be enqueued because it has not been registered.',
